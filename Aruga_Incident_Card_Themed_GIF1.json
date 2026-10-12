@@ -1,0 +1,973 @@
+{
+  "$schema": "https://adaptivecards.microsoft.com/schemas/adaptive-card-2026-01-13.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "fallbackText": "Security incident #@{triggerBody()?['object']?['properties']?['incidentNumber']}: @{triggerBody()?['object']?['properties']?['title']}",
+  "speak": "Security incident number @{triggerBody()?['object']?['properties']?['incidentNumber']}. Severity @{variables('Severity')}. @{variables('Simplified Description')}",
+  "msteams": {
+    "width": "full"
+  },
+  "body": [
+    {
+      "type": "Container",
+      "id": "ticketSurface",
+      "bleed": true,
+      "backgroundImage": {
+        "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPgFxD4DwABkAEvD+fKowAAAABJRU5ErkJggg==",
+        "fillMode": "Cover"
+      },
+      "items": [
+        {
+          "type": "Container",
+          "id": "incidentHeader",
+          "bleed": true,
+          "items": [
+            {
+              "type": "ColumnSet",
+              "columns": [
+                {
+                  "type": "Column",
+                  "width": "stretch",
+                  "items": [
+                    {
+                      "type": "ColumnSet",
+                      "spacing": "Medium",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "auto",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "@{toUpper(variables('Severity'))}",
+                              "color": "@{variables('Temperature')}",
+                              "size": "Small",
+                              "weight": "Bolder",
+                              "wrap": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "INCIDENT #@{triggerBody()?['object']?['properties']?['incidentNumber']}",
+                              "color": "Light",
+                              "size": "Small",
+                              "weight": "Bolder",
+                              "wrap": true
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Container",
+                      "id": "alertTitleSearchLogs",
+                      "spacing": "Small",
+                      "selectAction": {
+                        "type": "Action.OpenUrl",
+                        "title": "Search Logs",
+                        "url": "SearchLogs69",
+                        "tooltip": "Open the alerted events and related logs"
+                      },
+                      "items": [
+                        {
+                          "type": "TextBlock",
+                          "text": "@{toUpper(triggerBody()?['object']?['properties']?['title'])}",
+                          "color": "Light",
+                          "size": "ExtraLarge",
+                          "weight": "Bolder",
+                          "wrap": true,
+                          "maxLines": 3,
+                          "spacing": "None",
+                          "targetWidth": "atLeast:Standard"
+                        },
+                        {
+                          "type": "TextBlock",
+                          "text": "@{toUpper(triggerBody()?['object']?['properties']?['title'])}",
+                          "color": "Light",
+                          "size": "Medium",
+                          "weight": "Bolder",
+                          "wrap": true,
+                          "maxLines": 3,
+                          "spacing": "None",
+                          "targetWidth": "atMost:Narrow"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Column",
+                  "width": "auto",
+                  "verticalContentAlignment": "Center",
+                  "items": [
+                    {
+                      "type": "Image",
+                      "url": "https://raw.githubusercontent.com/arugacybersoc/staff/main/Arugalogo_Trans.png",
+                      "altText": "Aruga Cyber",
+                      "width": "140px",
+                      "horizontalAlignment": "Right",
+                      "targetWidth": "atLeast:Standard",
+                      "selectAction": {
+                        "type": "Action.OpenUrl",
+                        "url": "Arugasneaky69"
+                      }
+                    },
+                    {
+                      "type": "Image",
+                      "url": "https://raw.githubusercontent.com/arugacybersoc/staff/main/Arugalogo_Trans.png",
+                      "altText": "Aruga Cyber",
+                      "width": "70px",
+                      "horizontalAlignment": "Right",
+                      "targetWidth": "atMost:Narrow",
+                      "selectAction": {
+                        "type": "Action.OpenUrl",
+                        "url": "Arugasneaky69"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "TextBlock",
+              "text": "@{variables('Simplified Description')}",
+              "color": "Light",
+              "size": "Medium",
+              "wrap": true,
+              "separator": true,
+              "spacing": "Large",
+              "targetWidth": "atLeast:Standard"
+            },
+            {
+              "type": "TextBlock",
+              "text": "@{variables('Simplified Description')}",
+              "color": "Light",
+              "size": "Small",
+              "wrap": true,
+              "separator": true,
+              "spacing": "Large",
+              "targetWidth": "atMost:Narrow"
+            },
+            {
+              "type": "Container",
+              "id": "allowListMatch",
+              "separator": true,
+              "spacing": "Large",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "ALLOW-LIST MATCH",
+                  "color": "Light",
+                  "size": "Small",
+                  "weight": "Bolder",
+                  "wrap": true
+                }
+              ]
+            }
+          ],
+          "spacing": "None",
+          "separator": false,
+          "showBorder": false,
+          "roundedCorners": false
+        }
+      ],
+      "spacing": "None",
+      "separator": false,
+      "style": "default",
+      "showBorder": false,
+      "roundedCorners": false
+    },
+    {
+      "type": "Container",
+      "id": "investigatingState",
+      "isVisible": true,
+      "showBorder": false,
+      "roundedCorners": false,
+      "separator": false,
+      "spacing": "None",
+      "bleed": true,
+      "style": "default",
+      "items": [
+        {
+          "type": "Image",
+          "id": "investigatingThemeImage",
+          "url": "https://raw.githubusercontent.com/arugacybersoc/staff/main/Aruga_Background_Cycle_10s.gif",
+          "themedUrls": [
+            {
+              "theme": "Light",
+              "url": "https://raw.githubusercontent.com/arugacybersoc/staff/main/Aruga_Background_Cycle_10s_Light.gif"
+            },
+            {
+              "theme": "Dark",
+              "url": "https://raw.githubusercontent.com/arugacybersoc/staff/main/Aruga_Background_Cycle_10s.gif"
+            }
+          ],
+          "altText": "Awaiting analyst assignment",
+          "size": "Stretch",
+          "horizontalAlignment": "Center",
+          "spacing": "None",
+          "width": "stretch",
+          "height": "250px",
+          "fitMode": "Cover",
+          "horizontalContentAlignment": "Center",
+          "verticalContentAlignment": "Center"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "id": "actionsSurface",
+      "bleed": true,
+      "spacing": "None",
+      "separator": false,
+      "style": "default",
+      "showBorder": false,
+      "roundedCorners": false,
+      "backgroundImage": {
+        "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNgYGBgAAAABQABeqhXUAAAAABJRU5ErkJggg==",
+        "fillMode": "Cover",
+        "horizontalAlignment": "Center",
+        "verticalAlignment": "Center",
+        "themedUrls": [
+          {
+            "theme": "Light",
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4////fwAJ+wP99djxmgAAAABJRU5ErkJggg=="
+          },
+          {
+            "theme": "Dark",
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNgYGD4DwABBAEAgLvRWwAAAABJRU5ErkJggg=="
+          }
+        ]
+      },
+      "items": [
+        {
+          "type": "ColumnSet",
+          "separator": true,
+          "spacing": "Large",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "ActionSet",
+                  "spacing": "Medium",
+                  "actions": [
+                    {
+                      "type": "Action.OpenUrl",
+                      "url": "@{triggerBody()?['object']?['properties']?['incidentUrl']}",
+                      "title": "Go to Incident",
+                      "tooltip": "Open the incident in Microsoft Sentinel",
+                      "style": "default"
+                    }
+                  ]
+                }
+              ],
+              "spacing": "None",
+              "verticalContentAlignment": "Center"
+            },
+            {
+              "type": "Column",
+              "width": "auto",
+              "items": [
+                {
+                  "type": "ActionSet",
+                  "spacing": "Medium",
+                  "actions": [
+                    {
+                      "type": "Action.OpenUrl",
+                      "url": "REMEDIATION69",
+                      "tooltip": "Open remediation",
+                      "title": "Actions",
+                      "style": "default",
+                      "isEnabled": true
+                    }
+                  ]
+                }
+              ],
+              "spacing": "Padding",
+              "verticalContentAlignment": "Center",
+              "minHeight": "10px"
+            },
+            {
+              "type": "Column",
+              "width": "stretch",
+              "spacing": "Medium",
+              "items": [
+                {
+                  "type": "ActionSet",
+                  "spacing": "Medium",
+                  "actions": [
+                    {
+                      "type": "Action.ToggleVisibility",
+                      "tooltip": "Show or hide incident enrichment",
+                      "targetElements": [
+                        "enrichmentPanel"
+                      ],
+                      "title": "Enrichments",
+                      "style": "default"
+                    }
+                  ]
+                }
+              ],
+              "verticalContentAlignment": "Center",
+              "rtl": true
+            }
+          ],
+          "id": "primaryActions",
+          "minHeight": "52px"
+        },
+        {
+          "type": "Container",
+          "id": "enrichmentPanel",
+          "isVisible": false,
+          "bleed": true,
+          "spacing": "Medium",
+          "backgroundImage": {
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNgYGBgAAAABQABeqhXUAAAAABJRU5ErkJggg==",
+            "fillMode": "Cover",
+            "horizontalAlignment": "Center",
+            "verticalAlignment": "Center",
+            "themedUrls": [
+              {
+                "theme": "Light",
+                "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4////fwAJ+wP99djxmgAAAABJRU5ErkJggg=="
+              },
+              {
+                "theme": "Dark",
+                "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNgYGD4DwABBAEAgLvRWwAAAABJRU5ErkJggg=="
+              }
+            ]
+          },
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "ENRICHMENTS",
+              "color": "Default",
+              "size": "Small",
+              "weight": "Bolder",
+              "wrap": true,
+              "horizontalAlignment": "Left"
+            },
+            {
+              "type": "Container",
+              "id": "enrichmentAccordion",
+              "style": "default",
+              "showBorder": false,
+              "roundedCorners": false,
+              "spacing": "Small",
+              "items": [
+                {
+                  "type": "Container",
+                  "id": "enrichmentAccordionHeader1",
+                  "spacing": "None",
+                  "minHeight": "44px",
+                  "verticalContentAlignment": "Center",
+                  "selectAction": {
+                    "type": "Action.ToggleVisibility",
+                    "targetElements": [
+                      "enrichmentPage1",
+                      "enrichmentChevronClosed1",
+                      "enrichmentChevronOpen1"
+                    ],
+                    "tooltip": "Expand or collapse entities",
+                    "title": "ENTITIES"
+                  },
+                  "items": [
+                    {
+                      "type": "ColumnSet",
+                      "spacing": "None",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "Entities",
+                              "color": "Default",
+                              "size": "Small",
+                              "weight": "Bolder",
+                              "wrap": true,
+                              "spacing": "None",
+                              "horizontalAlignment": "Left"
+                            }
+                          ],
+                          "spacing": "None"
+                        },
+                        {
+                          "type": "Column",
+                          "width": "auto",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "﹀",
+                              "color": "Attention",
+                              "size": "Small",
+                              "spacing": "None",
+                              "horizontalAlignment": "Right",
+                              "id": "enrichmentChevronClosed1",
+                              "isVisible": false
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "⌃",
+                              "color": "Attention",
+                              "size": "Small",
+                              "spacing": "None",
+                              "horizontalAlignment": "Right",
+                              "id": "enrichmentChevronOpen1",
+                              "isVisible": true
+                            }
+                          ],
+                          "spacing": "None"
+                        }
+                      ]
+                    }
+                  ],
+                  "showBorder": false,
+                  "roundedCorners": false,
+                  "separator": false
+                },
+                {
+                  "type": "Container",
+                  "id": "enrichmentPage1",
+                  "isVisible": true,
+                  "items": [
+                    {
+                      "type": "ColumnSet",
+                      "spacing": "Small",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "12px",
+                          "items": []
+                        },
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "**Accounts**\n@{variables('Accounts')}\n\n**Hosts**\n@{variables('Hosts')}\n\n**IP addresses**\n@{variables('IPs')}\n\n**Domains**\n@{variables('Domains')}\n\n**URLs**\n@{variables('URLs')}\n\n**Files / hashes**\n@{variables('FileHashes')}",
+                              "color": "Default",
+                              "wrap": true,
+                              "spacing": "Small",
+                              "size": "Small",
+                              "horizontalAlignment": "Left"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Column",
+                          "width": "12px",
+                          "items": []
+                        }
+                      ]
+                    }
+                  ],
+                  "spacing": "Small"
+                },
+                {
+                  "type": "Container",
+                  "id": "enrichmentAccordionHeader2",
+                  "spacing": "None",
+                  "minHeight": "44px",
+                  "verticalContentAlignment": "Center",
+                  "selectAction": {
+                    "type": "Action.ToggleVisibility",
+                    "targetElements": [
+                      "enrichmentPage2",
+                      "enrichmentChevronClosed2",
+                      "enrichmentChevronOpen2"
+                    ],
+                    "tooltip": "Expand or collapse user / host context",
+                    "title": "USER / HOST CONTEXT"
+                  },
+                  "items": [
+                    {
+                      "type": "ColumnSet",
+                      "spacing": "None",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "User / host context",
+                              "color": "Default",
+                              "size": "Small",
+                              "weight": "Bolder",
+                              "wrap": true,
+                              "spacing": "None",
+                              "horizontalAlignment": "Left"
+                            }
+                          ],
+                          "spacing": "None"
+                        },
+                        {
+                          "type": "Column",
+                          "width": "auto",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "﹀",
+                              "color": "Attention",
+                              "size": "Small",
+                              "spacing": "None",
+                              "horizontalAlignment": "Right",
+                              "id": "enrichmentChevronClosed2",
+                              "isVisible": true
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "⌃",
+                              "color": "Attention",
+                              "size": "Small",
+                              "spacing": "None",
+                              "horizontalAlignment": "Right",
+                              "id": "enrichmentChevronOpen2",
+                              "isVisible": false
+                            }
+                          ],
+                          "spacing": "None"
+                        }
+                      ]
+                    }
+                  ],
+                  "showBorder": false,
+                  "roundedCorners": false,
+                  "separator": true
+                },
+                {
+                  "type": "Container",
+                  "id": "enrichmentPage2",
+                  "isVisible": false,
+                  "items": [
+                    {
+                      "type": "ColumnSet",
+                      "spacing": "Small",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "12px",
+                          "items": []
+                        },
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "USER CONTEXT",
+                              "color": "Default",
+                              "size": "Small",
+                              "weight": "Bolder",
+                              "separator": true,
+                              "spacing": "Large",
+                              "horizontalAlignment": "Left"
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "@{if(empty(variables('User_Enrichment')), 'No user enrichment available', variables('User_Enrichment'))}",
+                              "color": "Default",
+                              "wrap": true,
+                              "spacing": "Small",
+                              "size": "Small",
+                              "horizontalAlignment": "Left"
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "HOST CONTEXT",
+                              "color": "Default",
+                              "size": "Small",
+                              "weight": "Bolder",
+                              "separator": true,
+                              "spacing": "Large",
+                              "horizontalAlignment": "Left"
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "@{if(empty(variables('Host Enrichment')), 'No host enrichment available', variables('Host Enrichment'))}",
+                              "color": "Default",
+                              "wrap": true,
+                              "spacing": "Small",
+                              "size": "Small",
+                              "horizontalAlignment": "Left"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Column",
+                          "width": "12px",
+                          "items": []
+                        }
+                      ]
+                    }
+                  ],
+                  "spacing": "Small"
+                },
+                {
+                  "type": "Container",
+                  "id": "enrichmentAccordionHeader3",
+                  "spacing": "None",
+                  "minHeight": "44px",
+                  "verticalContentAlignment": "Center",
+                  "selectAction": {
+                    "type": "Action.ToggleVisibility",
+                    "targetElements": [
+                      "enrichmentPage3",
+                      "enrichmentChevronClosed3",
+                      "enrichmentChevronOpen3"
+                    ],
+                    "tooltip": "Expand or collapse threat intelligence / remediation",
+                    "title": "THREAT INTELLIGENCE / REMEDIATION"
+                  },
+                  "items": [
+                    {
+                      "type": "ColumnSet",
+                      "spacing": "None",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "Threat intelligence / remediation",
+                              "color": "Default",
+                              "size": "Small",
+                              "weight": "Bolder",
+                              "wrap": true,
+                              "spacing": "None",
+                              "horizontalAlignment": "Left"
+                            }
+                          ],
+                          "spacing": "None"
+                        },
+                        {
+                          "type": "Column",
+                          "width": "auto",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "﹀",
+                              "color": "Attention",
+                              "size": "Small",
+                              "spacing": "None",
+                              "horizontalAlignment": "Right",
+                              "id": "enrichmentChevronClosed3",
+                              "isVisible": true
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "⌃",
+                              "color": "Attention",
+                              "size": "Small",
+                              "spacing": "None",
+                              "horizontalAlignment": "Right",
+                              "id": "enrichmentChevronOpen3",
+                              "isVisible": false
+                            }
+                          ],
+                          "spacing": "None"
+                        }
+                      ]
+                    }
+                  ],
+                  "showBorder": false,
+                  "roundedCorners": false,
+                  "separator": true
+                },
+                {
+                  "type": "Container",
+                  "id": "enrichmentPage3",
+                  "isVisible": false,
+                  "items": [
+                    {
+                      "type": "ColumnSet",
+                      "spacing": "Small",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "12px",
+                          "items": []
+                        },
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "THREAT INTELLIGENCE",
+                              "color": "Default",
+                              "size": "Small",
+                              "weight": "Bolder",
+                              "separator": true,
+                              "spacing": "Large",
+                              "horizontalAlignment": "Left"
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "@{variables('TI_Results_Light')}",
+                              "color": "Default",
+                              "wrap": true,
+                              "spacing": "Small",
+                              "size": "Small",
+                              "horizontalAlignment": "Left"
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "Malicious: @{variables('Total Malicious')}",
+                              "color": "Default",
+                              "size": "Small",
+                              "weight": "Bolder",
+                              "wrap": true,
+                              "spacing": "Medium",
+                              "horizontalAlignment": "Left"
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "@{variables('ThreatHunt_Results_light')}",
+                              "color": "Default",
+                              "wrap": true,
+                              "spacing": "Small",
+                              "size": "Small",
+                              "horizontalAlignment": "Left"
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "REMEDIATION",
+                              "color": "Default",
+                              "size": "Small",
+                              "weight": "Bolder",
+                              "separator": true,
+                              "spacing": "Large",
+                              "horizontalAlignment": "Left"
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "@{variables('Remediation Steps')}",
+                              "color": "Default",
+                              "wrap": true,
+                              "spacing": "Small",
+                              "size": "Small",
+                              "horizontalAlignment": "Left"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Column",
+                          "width": "12px",
+                          "items": []
+                        }
+                      ]
+                    }
+                  ],
+                  "spacing": "Small"
+                },
+                {
+                  "type": "Container",
+                  "id": "enrichmentAccordionHeader4",
+                  "spacing": "None",
+                  "minHeight": "44px",
+                  "verticalContentAlignment": "Center",
+                  "selectAction": {
+                    "type": "Action.ToggleVisibility",
+                    "targetElements": [
+                      "enrichmentPage4",
+                      "enrichmentChevronClosed4",
+                      "enrichmentChevronOpen4"
+                    ],
+                    "tooltip": "Expand or collapse sign-in / pim activity",
+                    "title": "SIGN-IN / PIM ACTIVITY"
+                  },
+                  "items": [
+                    {
+                      "type": "ColumnSet",
+                      "spacing": "None",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "Sign-in / PIM activity",
+                              "color": "Default",
+                              "size": "Small",
+                              "weight": "Bolder",
+                              "wrap": true,
+                              "spacing": "None",
+                              "horizontalAlignment": "Left"
+                            }
+                          ],
+                          "spacing": "None"
+                        },
+                        {
+                          "type": "Column",
+                          "width": "auto",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "﹀",
+                              "color": "Attention",
+                              "size": "Small",
+                              "spacing": "None",
+                              "horizontalAlignment": "Right",
+                              "id": "enrichmentChevronClosed4",
+                              "isVisible": true
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "⌃",
+                              "color": "Attention",
+                              "size": "Small",
+                              "spacing": "None",
+                              "horizontalAlignment": "Right",
+                              "id": "enrichmentChevronOpen4",
+                              "isVisible": false
+                            }
+                          ],
+                          "spacing": "None"
+                        }
+                      ]
+                    }
+                  ],
+                  "showBorder": false,
+                  "roundedCorners": false,
+                  "separator": true
+                },
+                {
+                  "type": "Container",
+                  "id": "enrichmentPage4",
+                  "isVisible": false,
+                  "items": [
+                    {
+                      "type": "ColumnSet",
+                      "spacing": "Small",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "12px",
+                          "items": []
+                        },
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "Container",
+                              "id": "signInActivity",
+                              "separator": true,
+                              "spacing": "Medium",
+                              "items": [
+                                {
+                                  "type": "TextBlock",
+                                  "text": "SIGN-IN ACTIVITY",
+                                  "color": "Default",
+                                  "size": "Small",
+                                  "weight": "Bolder",
+                                  "horizontalAlignment": "Left"
+                                },
+                                {
+                                  "type": "Image",
+                                  "url": "@{body('MAPBOX_LOGIC')['mapUrl']}",
+                                  "size": "Stretch",
+                                  "horizontalAlignment": "Center",
+                                  "altText": "Map of sign-in activity",
+                                  "spacing": "Medium",
+                                  "fallback": "drop"
+                                },
+                                {
+                                  "type": "TextBlock",
+                                  "text": "@{body('MAPBOX_LOGIC')['colourKey']}",
+                                  "color": "Default",
+                                  "size": "Small",
+                                  "isSubtle": true,
+                                  "horizontalAlignment": "Left",
+                                  "wrap": true,
+                                  "spacing": "Small"
+                                },
+                                {
+                                  "type": "TextBlock",
+                                  "text": "@{if(equals(body('MAPBOX_LOGIC')?['hasResults'], true), '', 'No sign-in map data available.')}",
+                                  "color": "Default",
+                                  "size": "Small",
+                                  "wrap": true,
+                                  "spacing": "Small",
+                                  "horizontalAlignment": "Left"
+                                }
+                              ],
+                              "isVisible": true
+                            },
+                            {
+                              "type": "Container",
+                              "id": "pimActivity",
+                              "spacing": "Medium",
+                              "items": [
+                                {
+                                  "type": "TextBlock",
+                                  "text": "PRIVILEGED IDENTITY ACTIVITY",
+                                  "color": "Default",
+                                  "size": "Small",
+                                  "weight": "Bolder",
+                                  "spacing": "Large",
+                                  "horizontalAlignment": "Left"
+                                },
+                                {
+                                  "type": "TextBlock",
+                                  "text": "@{body('PIM_LOGIC')}",
+                                  "color": "Default",
+                                  "wrap": true,
+                                  "spacing": "Small",
+                                  "size": "Small",
+                                  "horizontalAlignment": "Left"
+                                }
+                              ],
+                              "isVisible": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Column",
+                          "width": "12px",
+                          "items": []
+                        }
+                      ]
+                    }
+                  ],
+                  "spacing": "Small"
+                }
+              ]
+            }
+          ],
+          "style": "default",
+          "separator": false
+        },
+        {
+          "type": "Container",
+          "separator": true,
+          "spacing": "Medium",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Generated @{formatDateTime(convertTimeZone(utcNow(), 'UTC', 'GMT Standard Time'), 'dd/MM/yyyy HH:mm:ss')} UK time",
+              "color": "Default",
+              "size": "Small",
+              "isSubtle": true,
+              "horizontalAlignment": "Center",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
